@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results | LungScanAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-lungs"></i>
+                <h1>LungScan<span>AI</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#faq">FAQ</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="results-section">
+                <div class="section-header">
+                    <h2>Analysis Results</h2>
+                    <p>AI-powered classification of your lung tissue images</p>
+                </div>
+
+                <div id="results-container" class="results-container">
+                    <!-- Results will be loaded here via JavaScript -->
+                    <div class="loading-results">
+                        <div class="loading-spinner"></div>
+                        <p>Loading results...</p>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <a href="/" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Analyze More Images
+                    </a>
+                    <button id="download-report" class="download-button">
+                        <i class="fas fa-download"></i> Download Report
+                    </button>
+                </div>
+
+                <div class="results-summary" id="results-summary">
+                    <!-- Summary will be loaded here via JavaScript -->
+                </div>
+            </section>
+
+            <section class="interpretation-guide">
+                <div class="section-header">
+                    <h2>Interpretation Guide</h2>
+                    <p>Understanding the classification results</p>
+                </div>
+
+                <div class="guide-cards">
+                    <div class="guide-card benign-card">
+                        <div class="guide-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Lung Benign Tissue</h3>
+                        <p>Normal lung tissue without signs of cancer. Characterized by regular cellular structure and organization.</p>
+                    </div>
+
+                    <div class="guide-card squamous-card">
+                        <div class="guide-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Lung Squamous Cell Carcinoma</h3>
+                        <p>A type of non-small cell lung cancer that begins in the squamous cells of the lung. Often associated with smoking.</p>
+                    </div>
+
+                    <div class="guide-card adeno-card">
+                        <div class="guide-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Lung Adenocarcinoma</h3>
+                        <p>A type of non-small cell lung cancer that begins in the glandular cells of the lung. The most common type of lung cancer.</p>
+                    </div>
+                </div>
+
+                <div class="disclaimer-box">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <h3>Important Disclaimer</h3>
+                        <p>This tool is for educational and research purposes only. It should not be used as a substitute for professional medical diagnosis. Always consult with healthcare professionals for medical advice.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-lungs"></i>
+                    <h2>LungScan<span>AI</span></h2>
+                </div>
+                <p>© 2025 LungScanAI. All rights reserved.</p>
+                <p class="disclaimer">This tool is for educational purposes only and not intended for clinical use.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/results.js') }}"></script>
+</body>
+</html>

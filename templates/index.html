@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Cancer Classification | AI-Powered Medical Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-lungs"></i>
+                <h1>LungScan<span>AI</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>AI-Powered Lung Cancer Classification</h1>
+                    <p>Upload lung tissue images for instant analysis using our advanced deep learning model</p>
+                    <a href="#upload-section" class="cta-button">Get Started <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='images/hero-image.jpg') }}" alt="Lung scan illustration">
+                </div>
+            </section>
+
+            <section id="upload-section" class="upload-section">
+                <div class="section-header">
+                    <h2>Upload Images for Analysis</h2>
+                    <p>Our AI model will classify lung tissue images with high accuracy</p>
+                </div>
+
+                {% if not model_loaded %}
+                <div class="error-banner">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Model not loaded. Please ensure the model file is available and restart the server.</p>
+                </div>
+                {% endif %}
+
+                <div class="upload-container">
+                    <div id="upload-box" class="upload-box">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">
+                            <h3>Drag & Drop Files Here</h3>
+                            <p>or <span class="browse-text">browse files</span></p>
+                            <p class="file-types">Supported formats: JPG, JPEG, PNG</p>
+                        </div>
+                        <input type="file" id="file-input" multiple accept=".jpg,.jpeg,.png">
+                    </div>
+
+                    <div id="preview-container" class="preview-container hidden">
+                        <div class="preview-header">
+                            <h3>Selected Images</h3>
+                            <button id="clear-files" class="clear-button">
+                                <i class="fas fa-times"></i> Clear All
+                            </button>
+                        </div>
+                        <div id="preview-list" class="preview-list"></div>
+                        <div class="upload-actions">
+                            <button id="analyze-button" class="analyze-button">
+                                <span class="button-text">Analyze Images</span>
+                                <span class="button-icon"><i class="fas fa-microscope"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message hidden"></div>
+                <div id="loading-container" class="loading-container hidden">
+                    <div class="loading-spinner"></div>
+                    <p>Analyzing images... <span id="progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="about-section">
+                <div class="section-header">
+                    <h2>About This Technology</h2>
+                    <p>Understanding our AI-powered lung cancer classification system</p>
+                </div>
+
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Deep Learning Model</h3>
+                        <p>Our system uses a fine-tuned ResNet50 model trained on thousands of lung tissue samples to accurately classify different types of lung tissues.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>High Accuracy</h3>
+                        <p>The model achieves over 97% accuracy in distinguishing between benign tissue, squamous cell carcinoma, and adenocarcinoma.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Privacy First</h3>
+                        <p>All image processing happens on our secure server. We don't store your images permanently or share them with third parties.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="faq-section">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Common questions about our lung cancer classification system</p>
+                </div>
+
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What types of lung cancer can this system detect?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our system can classify lung tissue images into three categories: Lung Benign Tissue (non-cancerous), Lung Squamous Cell Carcinoma, and Lung Adenocarcinoma (both cancerous types).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How accurate is the classification?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our model achieves over 97% accuracy on validation data. However, it should be used as a supportive tool for medical professionals, not as a replacement for clinical diagnosis.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What image formats are supported?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The system supports JPG, JPEG, and PNG image formats. For best results, use high-quality, well-lit images of lung tissue samples.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is this tool intended for clinical use?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No, this tool is for educational and research purposes only. It should not be used as a substitute for professional medical diagnosis. Always consult with healthcare professionals for medical advice.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-lungs"></i>
+                    <h2>LungScan<span>AI</span></h2>
+                </div>
+                <p>© 2025 LungScanAI. All rights reserved.</p>
+                <p class="disclaimer">This tool is for educational purposes only and not intended for clinical use.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
